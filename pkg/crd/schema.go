@@ -370,6 +370,15 @@ func structToSchema(ctx *schemaContext, structType *ast.StructType) *apiext.JSON
 			}
 		}
 		fieldName := jsonOpts[0]
+		temp := ""
+		for index, str := range strings.Split(fieldName, "_") {
+			if index == 0 {
+				temp += str
+				continue
+			}
+			temp += strings.Title(str)
+		}
+		fieldName = temp
 		inline = inline || fieldName == "" // anonymous fields are inline fields in YAML/JSON
 
 		// if no default required mode is set, default to required
